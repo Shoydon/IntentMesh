@@ -42,6 +42,24 @@ IntentMesh is currently being developed as a hands-on project to explore Arkiv's
 
 The initial implementation targets the Arkiv Rabdi testnet.
 
+## Current Progress
+
+### Implemented
+- [x] Arkiv Rabdi testnet connection
+- [x] Intent entity schema
+- [x] Create intent entities
+- [x] Retrieve entities by key
+- [x] Query intents using indexed attributes
+- [x] Update intent status using `patchEntity()`
+
+### Planned
+- [ ] Solver discovery and claim flow
+- [ ] Execution receipts
+- [ ] Entity references and lifecycle tracking
+- [ ] Batch operations
+- [ ] Frontend for publishing and discovering intents
+- [ ] Cross-chain execution integration
+
 ---
 
 *Built for the Arkiv ecosystem.*
