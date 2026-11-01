@@ -6,6 +6,11 @@ export type IntentStatus =
   | "COMPLETED"
   | "CANCELLED";
 
+export type ClaimStatus =
+  | "ACTIVE"
+  | "COMPLETED"
+  | "CANCELLED";
+
 export type IntentPayload = {
   sourceChain: number;
   destinationChain: number;
@@ -20,4 +25,10 @@ export type IntentAttributes = {
   status: IntentStatus;
   sourceChain: number;
   destinationChain: number;
+};
+
+export type ClaimPayload = {
+  intentKey: HexString;
+  solver: HexString;
+  status: ClaimStatus;
 };

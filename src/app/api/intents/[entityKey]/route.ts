@@ -2,7 +2,6 @@ import { publicClient } from "@/lib/arkiv/client";
 import { updateIntentStatus } from "@/lib/arkiv/intents";
 import { IntentSchema } from "@/lib/arkiv/schema";
 import { IntentStatus } from "@/lib/arkiv/types";
-import { HexString } from "@/types/string";
 import { hexToString, isHex } from "viem";
 
 type RouteContext = {
