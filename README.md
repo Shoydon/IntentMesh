@@ -46,17 +46,22 @@ The initial implementation targets the Arkiv Rabdi testnet.
 
 ### Implemented
 - [x] Arkiv Rabdi testnet connection
-- [x] Intent entity schema
-- [x] Create intent entities
+- [x] Intent entity schema and creation
 - [x] Retrieve entities by key
 - [x] Query intents using indexed attributes
 - [x] Update intent status using `patchEntity()`
+- [x] Solver claim entity creation
+- [x] Retrieve solver claim entities
+- [x] Filter intents by source chain, destination chain, and status
+- [x] Default discovery of OPEN intents
+
+### In Progress
+- [ ] Prevent duplicate claims for the same intent
+- [ ] Validate intent and claim lifecycle transitions
 
 ### Planned
-- [ ] Solver discovery and claim flow
 - [ ] Execution receipts
-- [ ] Entity references and lifecycle tracking
-- [ ] Batch operations
+- [ ] Complete solver lifecycle
 - [ ] Frontend for publishing and discovering intents
 - [ ] Cross-chain execution integration
 

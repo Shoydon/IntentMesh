@@ -20,6 +20,8 @@ export type IntentPayload = {
   status: IntentStatus;
 };
 
+export type IntentFilter = Partial<Omit<IntentPayload, "token" | "amount" | "recipient">>;
+
 export type IntentAttributes = {
   type: "intent";
   status: IntentStatus;
