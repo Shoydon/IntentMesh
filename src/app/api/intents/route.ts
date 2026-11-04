@@ -2,12 +2,45 @@ import { NextRequest } from "next/server";
 import { isAddress } from "viem";
 import { createIntent } from "@/lib/arkiv/intents";
 import { isValidAmount } from "@/utils/amount";
-import { getAllOpenIntents } from "@/lib/arkiv/queries";
+import { getAllOpenIntents, getFilteredIntents } from "@/lib/arkiv/queries";
 import { serializeBigInt } from "@/utils/serialize";
+import { IntentFilter, IntentStatus } from "@/lib/arkiv/types";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const intents = await getAllOpenIntents();
+    const params = req.nextUrl.searchParams;
+
+    const sourceChain = params.get("sourceChain");
+    const destinationChain = params.get("destinationChain");
+    const status = params.get("status");
+
+    const filters: IntentFilter = {};
+
+    if (sourceChain !== null) {
+      filters.sourceChain = Number(sourceChain);
+    }
+
+    if (destinationChain !== null) {
+      filters.destinationChain = Number(destinationChain);
+    }
+
+    if (status !== null) {
+      filters.status = status as IntentStatus;
+    }
+    if (
+      (sourceChain !== null && !Number.isInteger(filters.sourceChain)) ||
+      (destinationChain !== null && !Number.isInteger(filters.destinationChain))
+    ) {
+      return Response.json({ error: "Invalid chain ID" }, { status: 400 });
+    }
+
+    const hasFilters = Object.values(filters).some(
+      (value) => value !== undefined,
+    );
+
+    const intents = hasFilters
+      ? await getFilteredIntents(filters)
+      : await getAllOpenIntents();
 
     return Response.json({
       success: true,

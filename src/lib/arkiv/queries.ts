@@ -1,7 +1,7 @@
 import { publicClient } from "./client";
 import { IntentSchema } from "./schema";
 import { and, eq } from "@arkiv-network/sdk/query";
-import { IntentPayload } from "./types";
+import { IntentFilter, IntentPayload } from "./types";
 
 export async function getAllOpenIntents() {
   const { entities } = await publicClient
@@ -22,7 +22,7 @@ export async function getAllOpenIntents() {
   return entities;
 }
 
-export async function getFilteredIntents(filters: Partial<Omit<IntentPayload, "token" | "amount" | "recipient" >>) {
+export async function getFilteredIntents(filters: IntentFilter) {
   const conditions = [];
 
   if (filters.sourceChain !== undefined) {
