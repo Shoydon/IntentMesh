@@ -1,7 +1,9 @@
 import { publicClient } from "./client";
-import { IntentSchema } from "./schema";
+import { ClaimSchema, IntentSchema } from "./schema";
 import { and, eq } from "@arkiv-network/sdk/query";
-import { IntentFilter, IntentPayload } from "./types";
+import { IntentFilter } from "./types";
+import { HexString } from "@/types/string";
+import { key } from "@arkiv-network/sdk";
 
 export async function getAllOpenIntents() {
   const { entities } = await publicClient
@@ -51,6 +53,28 @@ export async function getFilteredIntents(filters: IntentFilter) {
   const { entities } = await (
     conditions.length ? query.where(and(...conditions)) : query
   ).fetch();
+
+  return entities;
+}
+
+export async function getActiveClaimsForIntent(
+  intentKey: HexString
+) {
+  const { entities } = await publicClient
+    .select({
+      $key: true,
+      intentKey: true,
+      solver: true,
+      status: true,
+    })
+    .from(ClaimSchema)
+    .where(
+      and(
+        eq("intentKey", key(intentKey)),
+        eq("status", "ACTIVE")
+      )
+    )
+    .fetch();
 
   return entities;
 }

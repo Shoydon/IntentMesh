@@ -24,7 +24,6 @@ export async function POST(request: Request) {
       success: true,
       entityKey: result.entityKey,
       txHash: result.txHash,
-      expiresAt: result.expiresAt.toString(),
     });
   } catch (error) {
     console.error("Claim creation failed:", error);

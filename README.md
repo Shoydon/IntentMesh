@@ -10,7 +10,7 @@ Instead of relying on a centralized coordinator, IntentMesh uses **Arkiv's query
 
 1. **Publish an Intent:** Users publish a cross-chain request specifying the source chain, destination chain, token, amount, and recipient.
 2. **Discover Intents:** Solvers query Arkiv to discover available intents matching their capabilities.
-3. **Claim an Intent:** A solver creates a claim linked to the original intent.
+3. **Claim an Intent:** A solver creates a separate claim entity linked to the original intent.
 4. **Execute:** The solver fulfils the requested operation.
 5. **Record Completion:** An execution receipt is published and linked to the original intent, creating a verifiable lifecycle history.
 
@@ -29,41 +29,43 @@ The application explores:
 
 - Queryable entities using typed, indexed attributes.
 - Entity ownership and permission management.
-- Entity relationships through references.
+- Entity relationships through native entity-key references.
 - Entity lifecycle management and expiration.
 - Atomic batch operations.
 - Verifiable transaction and execution history.
 
-## Development Status
-
-🚧 **Under Development**
-
-IntentMesh is currently being developed as a hands-on project to explore Arkiv's capabilities and build a decentralized cross-chain intent coordination system.
-
-The initial implementation targets the Arkiv Rabdi testnet.
-
 ## Current Progress
 
 ### Implemented
+
 - [x] Arkiv Rabdi testnet connection
 - [x] Intent entity schema and creation
 - [x] Retrieve entities by key
 - [x] Query intents using indexed attributes
 - [x] Update intent status using `patchEntity()`
-- [x] Solver claim entity creation
-- [x] Retrieve solver claim entities
 - [x] Filter intents by source chain, destination chain, and status
 - [x] Default discovery of OPEN intents
-
-### In Progress
-- [ ] Prevent duplicate claims for the same intent
-- [ ] Validate intent and claim lifecycle transitions
+- [x] Solver claim entity creation and retrieval
+- [x] Link claims to original intents using native entity-key references
+- [x] Validate intent status before claiming
+- [x] Check for existing active claims
+- [x] Atomically create claims and update intent status using batch operations
 
 ### Planned
-- [ ] Execution receipts
+
 - [ ] Complete solver lifecycle
+- [ ] Execution receipts
+- [ ] Robust concurrent claim coordination
 - [ ] Frontend for publishing and discovering intents
 - [ ] Cross-chain execution integration
+
+## Development Status
+
+🚧 **Under Development**
+
+IntentMesh is being developed as a decentralized cross-chain intent coordination system, with Arkiv providing the shared, queryable state layer.
+
+The initial implementation targets the Arkiv Rabdi testnet.
 
 ---
 
